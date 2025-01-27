@@ -1,22 +1,16 @@
 name: ${project.name}
 description: ${project.description}
-main: org.retromc.templateplugin.TemplatePlugin
+main: org.retromc.discordcore.v5.DiscordCorePlugin
 version: ${project.version}
 authors:
   - JohnyMuffin
-softdepend:
-  - Essentials
 
 commands:
-  testcommand:
-    description: A test command for the plugin.
+  discordcore:
+    description: Return information about the JDA bot.
     usage: /<command> [args]
-    aliases: [tc]
-    permission: myplugin.testcommand
-    permission-message: You do not have permission to use this command.
 
 permissions:
-  myplugin.*:
-    description: Gives access to all myplugin commands.
-    children:
-      myplugin.testcommand: true
+  discordcore.command:
+    description: Permission to use the /discordcore command.
+    default: true

@@ -1,20 +1,20 @@
-package org.retromc.templateplugin;
+package org.retromc.discordcore.v5;
 
 import org.bukkit.util.config.Configuration;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * A custom configuration class for managing plugin configuration files in a Bukkit environment.
  * Extends the {@link Configuration} class to provide additional utility methods for
  * reading and writing configuration options with defaults.
  */
-public class TemplateConfig extends Configuration {
+public class DiscordConfig extends Configuration {
     private final int configVersion = 1;
 
 
-    private TemplatePlugin plugin;
+    private DiscordCorePlugin plugin;
 
     /**
      * Constructs a new TemplateConfig instance.
@@ -22,7 +22,7 @@ public class TemplateConfig extends Configuration {
      * @param plugin     The plugin instance associated with this configuration.
      * @param configFile The configuration file to be managed.
      */
-    public TemplateConfig(TemplatePlugin plugin, File configFile) {
+    public DiscordConfig(DiscordCorePlugin plugin, File configFile) {
         super(configFile);
         this.plugin = plugin;
         this.reload();
@@ -43,15 +43,11 @@ public class TemplateConfig extends Configuration {
         // Main options
         generateConfigOption("config-version", configVersion);
 
-        // Plugin options
-        generateConfigOption("settings.test-command.enabled.value", true);
-        generateConfigOption("settings.test-command.enabled.info", "Whether the test command is enabled."); // Informational comment
+        generateConfigOption("settings.discord-token.info", "The token used to authenticate with the Discord API. This is required for the plugin to function.");
+        generateConfigOption("settings.discord-token.value", "INSERT_TOKEN");
 
-        generateConfigOption("settings.test-command.response.value", "This is the response sent to players when they execute the test command.");
-        generateConfigOption("settings.test-command.response.info", "The response sent to players when they execute the test command."); // Informational comment
-
-        generateConfigOption("settings.welcome-message.value", "Welcome to the server, %player%!");
-        generateConfigOption("settings.welcome-message.info", "The message sent to players when join the server."); // Informational comment
+        generateConfigOption("settings.discord-intents.info", "The list of Discord intents to enable. These are used to specify which events the bot should receive.");
+        generateConfigOption("settings.discord-intents.value", Arrays.asList("GUILD_MEMBERS", "DIRECT_MESSAGES", "MESSAGE_CONTENT"));
     }
 
     private void convertToNewConfig() {
@@ -59,8 +55,7 @@ public class TemplateConfig extends Configuration {
 
         // Convert from old config version 0 to new config version 1
         if(this.getString("config-version") == null || Integer.valueOf(this.getString("config-version")) < 1) {
-            convertToNewAddress("settings.test-command-response.value", "settings.test-command.response.value", true);
-            convertToNewAddress("settings.test-command.enabled", "settings.test-command.enabled.value", true);
+
         }
     }
 
