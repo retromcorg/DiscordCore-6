@@ -1,6 +1,6 @@
 name: ${project.name}
 description: ${project.description}
-main: org.retromc.discordcore.v5.DiscordCorePlugin
+main: org.retromc.discordcore.v6.DiscordCorePlugin
 version: ${project.version}
 authors:
   - JohnyMuffin

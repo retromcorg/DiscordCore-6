@@ -1,45 +1,45 @@
-# Poseidon-Plugin-Template
+# DiscordCore 6
 
-This repository serves as a template to assist with creating plugins for Project Poseidon.
+DiscordCore is a Project Poseidon plugin that provides a shared JDA 6 Discord bot for other Bukkit plugins.
 
-It includes examples of:
-- A configuration file.
-- A listener.
-- A command.
+## Requirements
 
-## Steps to Use This Template
+- Java 25
+- Project Poseidon 2.0 or newer
+- A Discord bot token
 
-1. **Clone the Repository**
-    - Clone this repository to your local machine.
+## Installation
 
-2. **Modify `pom.xml`**
-    - Update the following fields to reflect your plugin:
-        - `name`
-        - `version`
-        - `description`
-    - **Note:** Removing `-SNAPSHOT` from the version will trigger the `release.yml` GitHub Action to create a GitHub release.
+1. Download the latest release JAR and place it in the server's `plugins` directory.
+2. Start the server once to generate `plugins/DiscordCore-6/config.yml`.
+3. Set `settings.discord-token.value` to your Discord bot token.
+4. Review `settings.discord-intents.value`, enable the corresponding intents in the Discord Developer Portal, and restart the server.
 
-3. **Refactor Package Structure**
-    - Refactor the package `org.retromc.templateplugin` to a unique package name for your plugin to avoid conflicts.
+The default intents are `GUILD_MEMBERS`, `DIRECT_MESSAGES`, and `MESSAGE_CONTENT`.
 
-4. **Update `plugin.yml`**
-    - Update the `plugin.yml` file to match the refactored package name and plugin metadata.
+## Usage
 
-5. **Modify the Code**
-    - Customize the code as required for your plugin.
-    - **Important:**
-        - Remove the player greeting example in the listener.
-        - Remove the test command.
+Run `/discordcore` to display the connected bot's status. The command uses the `discordcore.command` permission, which is granted by default.
 
-## GitHub Actions
+Other plugins can send messages through the stable wrapper API:
 
-This repository includes a pre-configured GitHub Action:
+```java
+import org.retromc.discordcore.api.DiscordCoreAPI;
 
-1. **`build-and-test.yml`**:
-    - Runs tests on every push to ensure code quality.
-    - Uploads an artifact for each commit, allowing others to download the plugin for testing.
+DiscordCoreAPI.sendMessage(123456789012345678L, "Hello from Poseidon!");
+DiscordCoreAPI.sendMessageToUser(123456789012345678L, "Hello!");
+```
 
-2. **`release.yml`**:
-    - Automatically creates a GitHub release if the `-SNAPSHOT` suffix is removed from the version in `pom.xml`.
+## Building
 
-With this template, you can kickstart your plugin development for Project Poseidon quickly and efficiently.
+Build the shaded plugin JAR with Java 25:
+
+```shell
+mvn clean package
+```
+
+The resulting JAR is written to `target/`.
+
+## License
+
+DiscordCore is available under the [MIT License](LICENSE).

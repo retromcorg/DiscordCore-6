@@ -1,4 +1,4 @@
-package org.retromc.discordcore.v5;
+package org.retromc.discordcore.v6;
 
 import org.bukkit.util.config.Configuration;
 

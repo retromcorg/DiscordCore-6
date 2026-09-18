@@ -3,7 +3,7 @@ package org.retromc.discordcore.api;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import org.retromc.discordcore.v5.DiscordCorePlugin;
+import org.retromc.discordcore.v6.DiscordCorePlugin;
 
 import java.util.logging.Level;
 
@@ -17,6 +17,11 @@ public class DiscordCoreAPI {
     public static void init(DiscordCorePlugin plugin, JDA jda) {
         DiscordCoreAPI.plugin = plugin;
         DiscordCoreAPI.jda = jda;
+    }
+
+    public static void clear() {
+        DiscordCoreAPI.jda = null;
+        DiscordCoreAPI.plugin = null;
     }
 
     // Send message to channel

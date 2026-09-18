@@ -1,12 +1,11 @@
-package org.retromc.discordcore.v5.commands;
+package org.retromc.discordcore.v6.commands;
 
 import net.dv8tion.jda.api.JDA;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.retromc.discordcore.v5.DiscordConfig;
-import org.retromc.discordcore.v5.DiscordCorePlugin;
+import org.retromc.discordcore.v6.DiscordConfig;
+import org.retromc.discordcore.v6.DiscordCorePlugin;
 
 public class DiscordCoreCommand implements CommandExecutor {
 
@@ -26,7 +25,16 @@ public class DiscordCoreCommand implements CommandExecutor {
             return true;
         }
 
+        if (plugin.getDiscordBot() == null || plugin.getDiscordBot().getJDA() == null) {
+            sender.sendMessage("DiscordCore is not currently running.");
+            return true;
+        }
+
         JDA jda = plugin.getDiscordBot().getJDA();
+        if (jda.getStatus() != JDA.Status.CONNECTED) {
+            sender.sendMessage("DiscordCore is not ready (status: " + jda.getStatus() + ").");
+            return true;
+        }
 
         // Print some information about the bot
         sender.sendMessage("DiscordCore Bot Information:");
